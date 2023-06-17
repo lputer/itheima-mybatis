@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.ClazzMapper">
+    <insert id="insert">
+        insert into clazz(name, room, begin, end, create_time, update_time)
+        VALUES (#{name}, #{room}, #{begin}, #{end}, #{createTime}, #{updateTime})
+    </insert>
+
+    <delete id="delete">
+        delete from clazz where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectAll" resultType="com.itheima.pojo.Clazz">
+        select *
+        from clazz
+        <where>
+            <if test="name!=null and name!=''">name like concat('%',#{name},'%')</if>
+            <if test="begin!=null">
+                and begin = #{begin}
+            </if>
+            <if test="end!=null">
+                and end = #{end}
+            </if>
+        </where>
+    </select>
+</mapper>

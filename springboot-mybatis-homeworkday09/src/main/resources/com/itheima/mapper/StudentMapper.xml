@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.StudentMapper">
+
+    <insert id="insertStudent">
+        insert into student
+        values (null, #{name}, #{no}, #{gender}, #{phone}, #{degree}, #{violationCount}, #{violationScore}, #{classId},
+                #{createTime}, #{updateTime})
+    </insert>
+
+
+    <select id="selectById" resultType="com.itheima.pojo.Student">
+        select id,
+               name,
+               no,
+               gender,
+               phone,
+               degree,
+               violation_count,
+               violation_score,
+               class_id,
+               create_time,
+               update_time
+        from student
+        where id = #{id}
+    </select>
+
+    <update id="updateTrends">
+        update student
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="no!=null and no!=''">
+                no=#{no},
+            </if>
+            <if test="gender!=null">
+                gender=#{gender},
+            </if>
+            <if test="phone!=null and phone!=''">
+                phone=#{phone},
+            </if>
+            <if test="degree!=null">
+                degree=#{degree},
+            </if>
+            <if test="violationCount!=null">
+                violation_count=#{violationCount},
+            </if>
+            <if test="violationScore!=null">
+                violation_score=#{violationScore},
+            </if>
+            <if test="classId!=null">
+                class_id=#{classId},
+            </if>
+            <if test="updateTime!=null">
+                update_time=#{updateTime}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectTrends" resultType="com.itheima.pojo.Student">
+        select name, no, degree, class_id
+        from student
+        <where>
+            <if test="name!=null and name!=''">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="no!=null and no!=''">
+                and no = #{no}
+            </if>
+            <if test="degree!=null">
+                and degree = #{degree}
+            </if>
+            <if test="classId!=null">
+                and class_id={classId}
+            </if>
+        </where>
+    </select>
+</mapper>
