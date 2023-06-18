@@ -3,32 +3,23 @@ package com.itheima.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.itheima.pojo.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
+@Component
 @Slf4j
-// @WebFilter(urlPatterns = "/*")
-public class LoginCheckFilter implements Filter {
+public class LoginCheckInterceptor implements HandlerInterceptor {
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        //前置：强制转换为http协议的请求对象、响应对象 （转换原因：要使用子类中特有方法）
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        // 1.获取请求url
+        // 1.获取请求url 可删掉,用来看访问路径的日志
         String url = request.getRequestURL().toString();
         log.info("请求路径:{}", url); // http://localhost:90/login
-
-        // 2.判断请求url是否包含login,如果包含,说明是登录操作,放行
-        if (url.contains("/login")) {
-            filterChain.doFilter(request, response); // 放行请求
-            return; // 结束当前方法的执行
-        }
 
         // 3.获取请求头中的令牌(token)
         String token = request.getHeader("token");
@@ -44,7 +35,7 @@ public class LoginCheckFilter implements Filter {
             // 响应
             response.getWriter().write(json);
 
-            return;
+            return false;
         }
 
         // 5.解析token,如果解析失败,返回错误结果(未登录)
@@ -56,9 +47,21 @@ public class LoginCheckFilter implements Filter {
             String json = JSONObject.toJSONString(responseResult);
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(json);
+
+            return false;
         }
 
         // 放行请求
-        filterChain.doFilter(request, response);
+        return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        System.out.println("postHandle...");
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        System.out.println("afterCompletion...");
     }
 }

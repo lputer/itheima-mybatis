@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class JwtUtils {
     private static String signKey = "itheima";
-    private static Long expire = 10000L;
+    private static Long expire = 3600000L;
 
     public static String generateJwt(Map<String, Object> claims) {
         String jwt = Jwts.builder()
