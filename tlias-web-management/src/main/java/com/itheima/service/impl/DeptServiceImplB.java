@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service("DeptServiceImplA")
-public class DeptServiceImpl implements DeptService {
+@Service("DeptServiceImplB")
+public class DeptServiceImplB implements DeptService {
     @Autowired
     private DeptMapper deptMapper;
 
@@ -33,6 +33,7 @@ public class DeptServiceImpl implements DeptService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Integer id) throws Exception {
+        try {
             // 根据部门id删除部门信息
             deptMapper.deleteById(id);
 
@@ -40,11 +41,19 @@ public class DeptServiceImpl implements DeptService {
             // int i = 1 / 0;
 
             if (true) {
-                throw new Exception("A出现异常了~~~");
+                throw new Exception("B出现异常了~~~");
             }
 
             // 删除部门下的所有员工信息
             empService.deleteByDeptId(id);
+
+        } finally {
+            DeptLog deptLog = new DeptLog();
+            deptLog.setCreateTime(LocalDateTime.now());
+            deptLog.setDescription("执行了解散部门的操作，此时解散的是" + id + "号部门");
+            //调用其他业务类中的方法
+            deptLogService.insert(deptLog);
+        }
     }
 
     @Override

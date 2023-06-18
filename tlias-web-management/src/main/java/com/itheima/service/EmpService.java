@@ -22,4 +22,6 @@ public interface EmpService {
 
     Emp getByUsernameAndPassword(Emp emp);
 
+    void deleteByDeptId(Integer id);
+
 }

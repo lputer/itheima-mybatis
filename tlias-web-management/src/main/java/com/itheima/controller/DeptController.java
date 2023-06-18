@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/depts")
 public class DeptController {
-    @Autowired
+    @Resource(name = "DeptServiceImplB")
     private DeptService deptService;
 
     @GetMapping
@@ -27,7 +28,7 @@ public class DeptController {
     }
 
     @DeleteMapping("/{id}")
-    public Result deleteById(@PathVariable Integer id) {
+    public Result deleteById(@PathVariable Integer id) throws Exception {
         log.info("删除部门信息,id={}", id);
         deptService.delete(id);
         return Result.success();
@@ -52,5 +53,5 @@ public class DeptController {
         log.info("修改部门信息,{}", dept);
         deptService.update(dept);
         return Result.success();
-    } 
+    }
 }
