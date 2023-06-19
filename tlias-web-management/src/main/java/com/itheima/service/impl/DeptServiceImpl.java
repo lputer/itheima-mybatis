@@ -1,5 +1,6 @@
 package com.itheima.service.impl;
 
+import com.itheima.anno.Log;
 import com.itheima.mapper.DeptMapper;
 import com.itheima.pojo.Dept;
 import com.itheima.pojo.DeptLog;
@@ -30,6 +31,7 @@ public class DeptServiceImpl implements DeptService {
         return deptList;
     }
 
+    @Log
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Integer id) throws Exception {
@@ -47,6 +49,7 @@ public class DeptServiceImpl implements DeptService {
             empService.deleteByDeptId(id);
     }
 
+    @Log
     @Override
     public void insert(Dept dept) {
         dept.setCreateTime(LocalDateTime.now());
@@ -60,6 +63,7 @@ public class DeptServiceImpl implements DeptService {
         return dept;
     }
 
+    @Log
     @Override
     public void update(Dept dept) {
         dept.setUpdateTime(LocalDateTime.now());

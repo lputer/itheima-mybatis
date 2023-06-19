@@ -2,6 +2,7 @@ package com.itheima.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.itheima.anno.Log;
 import com.itheima.mapper.EmpMapper;
 import com.itheima.pojo.Emp;
 import com.itheima.pojo.PageBean;
@@ -70,6 +71,7 @@ public class EmpServiceImpl implements EmpService {
         Emp emp1 = empMapper.getByUsernameAndPassword(emp);
         return emp1;
     }
+
 
     @Override
     public void deleteByDeptId(Integer id) {

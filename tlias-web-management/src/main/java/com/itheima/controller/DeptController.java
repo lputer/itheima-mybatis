@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/depts")
 public class DeptController {
-    @Resource(name = "DeptServiceImplB")
+    @Resource(name = "DeptServiceImplC")
     private DeptService deptService;
 
     @GetMapping

@@ -9,9 +9,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="tlias-web-management" />
         <module name="springboot-web-homeworkday11" />
-        <module name="springboot-web-homework10" />
+        <module name="springboot-aop-quickstart" />
         <module name="springboot-mybatis-homeworkday09" />
         <module name="springboot-mybatis-quicker" />
+        <module name="itheima-utils" />
+        <module name="springboot-web-config" />
+        <module name="springboot-web-homework10" />
+        <module name="springboot-web-config2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11">
@@ -20,8 +24,11 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="springboot-aop-quickstart" options="-parameters" />
       <module name="springboot-mybatis-homeworkday09" options="-parameters" />
       <module name="springboot-mybatis-quicker" options="-parameters" />
+      <module name="springboot-web-config" options="-parameters" />
+      <module name="springboot-web-config2" options="-parameters" />
       <module name="springboot-web-homework10" options="-parameters" />
       <module name="springboot-web-homeworkday11" options="-parameters" />
       <module name="tlias-web-management" options="-parameters" />
