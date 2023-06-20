@@ -2,18 +2,18 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/tlias
-    username: root
-    password: 123456
+    username: 
+    password: 
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 aliyun:
   oss:
-    endpoint: oss-cn-beijing.aliyuncs.com
-    accessKeyId: LTAI5tATbxuqNqRWKj8DfyCQ
-    accessKeySecret: P983X4TMfLjU4ZWiaFgSHepAXktq4C
-    bucketName: web-tlias-lw
+    endpoint: 
+    accessKeyId: 
+    accessKeySecret: 
+    bucketName: 
 #spring事务管理日志
 logging:
   level:
