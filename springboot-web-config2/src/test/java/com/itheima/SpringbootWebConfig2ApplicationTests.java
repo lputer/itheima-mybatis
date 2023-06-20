@@ -18,18 +18,23 @@ class SpringbootWebConfig2ApplicationTests {
 
     @Autowired
     private SAXReader saxReader;
+    @Autowired
+    private ApplicationContext applicationContext; // IOC容器
 
     //获取bean对象
     @Test
     public void testGetBean() {
         //根据bean的名称获取
-
+        DeptController bean1 = (DeptController) applicationContext.getBean("deptController");
+        System.out.println(bean1);
 
         //根据bean的类型获取
-
+        DeptController bean2 = applicationContext.getBean(DeptController.class);
+        System.out.println(bean2);
 
         //根据bean的名称 及 类型获取
-
+        DeptController bean3 = applicationContext.getBean("deptController", DeptController.class);
+        System.out.println(bean3);
     }
 
 
@@ -54,12 +59,9 @@ class SpringbootWebConfig2ApplicationTests {
         System.out.println(name + " : " + age);
     }
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
 
     @Test
-    public void testTokenParse(){
+    public void testTokenParse() {
         System.out.println(applicationContext.getBean(TokenParser.class));
     }
 
